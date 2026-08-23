@@ -99,7 +99,10 @@ nav{display:flex; flex-direction:column; gap:2px; flex:1;}
 /* ===== tables ===== */
 table{width:100%; border-collapse:collapse; font-size:.87rem;}
 .grid-table{display:grid; grid-template-columns:170px 90px 100px 80px 110px 100px 90px 100px; min-width:840px; font-size:.87rem;}
-.entries-grid{grid-template-columns:100px 110px 130px 80px 80px 80px 70px 120px 70px 80px; min-width:920px;}
+.entries-grid{grid-template-columns:100px 110px 130px 80px 80px 80px 70px 120px 70px 110px; min-width:950px;}
+.wh-grid{grid-template-columns:100px 120px 140px 90px 1fr 130px 120px; min-width:800px;}
+#dashModelTable{grid-template-columns:1fr 110px; min-width:0;}
+.btn-sm{padding:4px 8px; font-size:.72rem;}
 #page-reports{font-size:1.08rem;}
 #page-reports h3{font-size:1.12rem;}
 .grid-table .gt-head{background:#fafbfd; color:var(--muted); font-weight:700; padding:10px 12px; border-bottom:1px solid var(--border); text-align:center; white-space:nowrap;}
@@ -122,34 +125,66 @@ td:first-child, th:first-child{text-align:right;}
 .msg.ok{background:var(--green-light); color:var(--green);}
 .msg.err{background:var(--red-light); color:var(--red);}
 .empty{color:var(--muted); text-align:center; padding:30px; font-size:.9rem;}
+.compare-box{display:flex; align-items:center; justify-content:center; gap:22px; flex-wrap:wrap; padding:6px 0;}
+.compare-item{text-align:center; min-width:130px;}
+.compare-item .lbl{color:var(--muted); font-size:.8rem; font-weight:600; margin-bottom:6px;}
+.compare-item .val{font-size:1.8rem; font-weight:900;}
+.compare-sep{font-size:1.4rem; color:var(--gold); font-weight:900;}
+.hero-panel{text-align:center;}
+.hero-total-row{display:flex; align-items:center; justify-content:center; gap:28px; flex-wrap:wrap;}
+.hero-total .lbl{color:var(--muted); font-size:.82rem; font-weight:600; margin-bottom:4px;}
+.hero-num{font-size:2.6rem; font-weight:900; color:var(--navy); line-height:1;}
+.hero-lines{display:flex; gap:16px; flex-wrap:wrap; justify-content:center;}
+.hero-line-item{background:#fafbfd; border:1px solid var(--border); border-radius:10px; padding:8px 14px; text-align:center; min-width:90px;}
+.hero-line-item .n{display:block; font-size:1.1rem; font-weight:800;}
+.hero-line-item .t{display:block; font-size:.72rem; color:var(--muted); margin-top:2px;}
+.split-2{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+.split-col h3{text-align:center;}
+@media(max-width:900px){
+  .split-2{grid-template-columns:1fr;}
+}
+.modal-overlay{position:fixed; inset:0; background:rgba(15,20,35,.55); z-index:900; display:flex; align-items:center; justify-content:center; padding:16px;}
+.modal-box{background:var(--card); border-radius:16px; padding:20px; width:100%; max-width:560px; max-height:88vh; overflow-y:auto; box-shadow:0 20px 50px rgba(0,0,0,.3);}
+.modal-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;}
+.modal-header h3{font-size:1.05rem;}
+.modal-close{background:#eef1f8; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer; font-size:.9rem; color:var(--text);}
 
 @media print{
-  @page{ size:A4; margin:10mm; }
+  @page{ size:A4; margin:8mm; }
   .sidebar, .topbar, .inline-form, .btn{display:none !important;}
   .content{display:none !important;}
   .content.active{display:block !important; padding:0; gap:0;}
-  body{background:#fff; font-size:13px; font-weight:600; color:#000;}
-  .panel{box-shadow:none; border:1.5px solid #999; padding:8px 10px; margin-bottom:8px; page-break-inside:avoid; border-radius:6px;}
-  .panel h3{font-size:15px; font-weight:800; margin-bottom:7px; color:#000;}
-  .cards-row{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:8px;}
-  .stat-card{padding:8px 10px; gap:3px; border:1.5px solid #999; box-shadow:none;}
-  .stat-card .lbl{font-size:11px; font-weight:700; color:#000;}
-  .stat-card .val{font-size:19px; font-weight:900; color:#000;}
-  canvas{max-height:160px !important;}
-  table, .grid-table{font-size:12px; font-weight:700; color:#000;}
-  th, td, .gt-head, .gt-cell{padding:5px 6px !important; font-weight:700; color:#000;}
+  body{background:#fff; font-size:9.5px; font-weight:600; color:#000;}
+  .panel{box-shadow:none; border:1px solid #999; padding:5px 7px; margin-bottom:5px; page-break-inside:avoid; border-radius:4px;}
+  .panel h3{font-size:11px; font-weight:800; margin-bottom:4px; color:#000;}
+  .cards-row{display:grid; grid-template-columns:repeat(4,1fr); gap:5px; margin-bottom:5px;}
+  .stat-card{padding:5px 7px; gap:2px; border:1px solid #999; box-shadow:none;}
+  .stat-card .lbl{font-size:8px; font-weight:700; color:#000;}
+  .stat-card .val{font-size:14px; font-weight:900; color:#000;}
+  canvas{max-height:110px !important;}
+  table, .grid-table{font-size:8.5px; font-weight:700; color:#000;}
+  th, td, .gt-head, .gt-cell{padding:3px 4px !important; font-weight:700; color:#000;}
   .gt-head{font-weight:900 !important;}
-  #repDiagnosis{grid-template-columns:repeat(3,1fr) !important; gap:8px !important;}
-  #repDiagnosis .stat-card{font-size:11.5px; font-weight:700; padding:7px 9px;}
-  #repRecommendations .msg, #repSummaryMgmt div{font-size:11.5px; font-weight:700; padding:5px 7px;}
-  #repNextDay label{font-size:11.5px; font-weight:700;}
-  #repImages img{width:70px !important; height:70px !important;}
-  .badge{font-size:10px; font-weight:800; padding:2px 8px;}
-  #repTrendTable{font-size:11px; min-width:0;}
+  #repDiagnosis{grid-template-columns:repeat(3,1fr) !important; gap:5px !important;}
+  #repDiagnosis .stat-card{font-size:8.5px; font-weight:700; padding:5px 6px;}
+  #repDiagnosis .stat-card div[style*="line-height"]{font-size:8.5px !important;}
+  #repRecommendations .msg, #repSummaryMgmt div{font-size:8.5px; font-weight:700; padding:3px 5px;}
+  #repNextDay label{font-size:8.5px; font-weight:700;}
+  #repImages img{width:46px !important; height:46px !important;}
+  .badge{font-size:7.5px; font-weight:800; padding:1px 6px;}
+  #repTrendTable{font-size:8px; min-width:0;}
   #repTrendTable .gt-cell, #repTrendTable .gt-head{white-space:normal;}
-  #cardEntriesCount{display:none !important;}
-  #reportArea .cards-row{grid-template-columns:repeat(3,1fr) !important;}
+  #reportArea .cards-row{grid-template-columns:repeat(2,1fr) !important;}
   .print-hide-empty{display:none !important;}
+  .hero-num{font-size:22px !important;}
+  .hero-total-row{gap:12px !important;}
+  .hero-line-item{padding:3px 8px !important; min-width:60px !important;}
+  .hero-line-item .n{font-size:9.5px !important;}
+  .hero-line-item .t{font-size:6.5px !important;}
+  .split-2{grid-template-columns:1fr 1fr !important; gap:8px !important;}
+  .split-col h3{font-size:10px !important;}
+  .compare-box{gap:12px !important;}
+  .compare-item .val{font-size:14px !important;}
 }
 
 @media(max-width:900px){
@@ -237,13 +272,14 @@ td:first-child, th:first-child{text-align:right;}
       <div><b>أبراج الأهرام</b><span>متابعة الإنتاج</span></div>
     </div>
     <nav>
-      <button class="navitem active" id="navDashboard" onclick="showPage('dashboard', this)">📊 <span class="navlabel">لوحة التحكم</span></button>
+      <button class="navitem active" id="navReports" onclick="showPage('reports', this)">📈 <span class="navlabel">التقرير الشامل</span></button>
+      <button class="navitem" id="navDashboard" onclick="showPage('dashboard', this)">📊 <span class="navlabel">لوحة التحكم</span></button>
       <button class="navitem" id="navEntry" onclick="showPage('entry', this)">📝 <span class="navlabel">إدخال الإنتاج</span></button>
+      <button class="navitem" id="navWarehouse" onclick="showPage('warehouse', this)">📥 <span class="navlabel">إدخال المخزن</span></button>
       <button class="navitem" id="navEntriesList" onclick="showPage('entrieslist', this)">📋 <span class="navlabel">الإدخالات</span></button>
       <button class="navitem" id="navLines" onclick="showPage('lines', this)">🏭 <span class="navlabel">خطوط الإنتاج</span></button>
       <button class="navitem" id="navModels" onclick="showPage('models', this)">📦 <span class="navlabel">الموديلات</span></button>
       <button class="navitem" id="navUsers" onclick="showPage('users', this)">👥 <span class="navlabel">المستخدمون</span></button>
-      <button class="navitem" id="navReports" onclick="showPage('reports', this)">📈 <span class="navlabel">التقرير الشامل</span></button>
       <div class="navdivider"></div>
       <button class="navitem logout" onclick="doLogout()">🚪 <span class="navlabel">تسجيل خروج</span></button>
     </nav>
@@ -268,30 +304,34 @@ td:first-child, th:first-child{text-align:right;}
     </div>
 
     <!-- ===== لوحة التحكم ===== -->
-    <div class="content active" id="page-dashboard">
+    <div class="content" id="page-dashboard">
       <div class="cards-row">
         <div class="stat-card"><div class="lbl">إجمالي الإنتاج (كل الفترات)</div><div class="val num" id="statTotal">0</div></div>
         <div class="stat-card"><div class="lbl">عدد الإدخالات</div><div class="val num" id="statEntries">0</div></div>
         <div class="stat-card"><div class="lbl">خطوط الإنتاج</div><div class="val num" id="statLines">0</div></div>
         <div class="stat-card"><div class="lbl">الموديلات</div><div class="val num" id="statModels">0</div></div>
       </div>
-      <div class="panel" style="max-width:420px; margin:0 auto; width:100%;">
-        <h3>توزيع الإنتاج حسب الخط</h3>
-        <div dir="ltr" style="max-width:360px; margin:0 auto;"><canvas id="lineDonutChart"></canvas></div>
-        <div class="empty" id="donutEmpty" style="display:none;">لا توجد بيانات بعد</div>
-      </div>
       <div class="panel">
-        <h3>إجمالي الإنتاج التراكمي لكل خط</h3>
-        <div dir="ltr" style="height:230px; max-width:640px; margin:0 auto;"><canvas id="dashBarChart"></canvas></div>
-        <div class="empty" id="dashBarEmpty" style="display:none;">لا توجد بيانات بعد</div>
+        <h3>مقارنة الإنتاج بالمخزن (كل الفترات)</h3>
+        <div class="compare-box">
+          <div class="compare-item">
+            <div class="lbl">إجمالي إنتاج الخطوط</div>
+            <div class="val num" id="cmpProduction">0</div>
+          </div>
+          <div class="compare-sep">⇄</div>
+          <div class="compare-item">
+            <div class="lbl">إجمالي المستلم بالمخزن</div>
+            <div class="val num" id="cmpWarehouse">0</div>
+          </div>
+        </div>
+        <div id="cmpDiffLine" style="text-align:center; margin-top:10px; font-size:.85rem;"></div>
       </div>
-      <div class="panel">
-        <h3>آخر الإدخالات</h3>
-        <div class="tbl-wrap"><table id="dashTable">
-          <thead><tr><th>التاريخ</th><th>الخط</th><th>الموديل</th><th>الكمية</th><th>أدخلها</th></tr></thead>
-          <tbody></tbody>
-        </table></div>
-        <div class="empty" id="dashEmpty" style="display:none;">لا توجد بيانات بعد</div>
+      <div class="panel" id="panelModelBreakdown">
+        <h3>إجمالي الإنتاج حسب كل موديل (كل الفترات)</h3>
+        <div class="tbl-wrap"><div class="grid-table" id="dashModelTable">
+          <div class="gt-head">الموديل</div><div class="gt-head">الكمية</div>
+        </div></div>
+        <div class="empty" id="dashModelEmpty" style="display:none;">لا توجد بيانات موديلات بعد</div>
       </div>
     </div>
 
@@ -325,6 +365,32 @@ td:first-child, th:first-child{text-align:right;}
           <button class="btn primary" onclick="submitEntry()">حفظ الإدخال</button>
           <button class="btn ghost" onclick="resetEntryForm()">مسح الحقول</button>
         </div>
+      </div>
+    </div>
+
+    <!-- ===== إدخال المخزن ===== -->
+    <div class="content" id="page-warehouse">
+      <div class="panel">
+        <h3>إدخال إنتاج المخزن</h3>
+        <div id="whMsg"></div>
+        <div class="form-grid">
+          <div><label>التاريخ *</label><input type="date" id="fWhDate"></div>
+          <div><label>خط الإنتاج *</label><select id="fWhLine"><option value="">اختر الخط</option></select></div>
+          <div><label>الموديل</label><select id="fWhModel"><option value="">اختر الموديل</option></select></div>
+          <div><label>الكمية المستلمة بالمخزن *</label><input type="number" id="fWhQty" min="0" value="0"></div>
+          <div class="full"><label>ملاحظات</label><textarea id="fWhNotes" rows="3" placeholder="أي ملاحظات إضافية"></textarea></div>
+        </div>
+        <div class="form-actions">
+          <button class="btn primary" onclick="submitWarehouseEntry()">حفظ إدخال المخزن</button>
+          <button class="btn ghost" onclick="resetWarehouseForm()">مسح الحقول</button>
+        </div>
+      </div>
+      <div class="panel">
+        <h3 id="whEntriesTitle">إدخالات المخزن الأخيرة</h3>
+        <div class="tbl-wrap"><div class="grid-table wh-grid" id="whEntriesTable">
+          <div class="gt-head">التاريخ</div><div class="gt-head">الخط</div><div class="gt-head">الموديل</div><div class="gt-head">الكمية</div><div class="gt-head">ملاحظات</div><div class="gt-head">أدخلها</div><div class="gt-head"></div>
+        </div></div>
+        <div class="empty" id="whEntriesEmpty" style="display:none;">لا توجد إدخالات مخزن بعد</div>
       </div>
     </div>
 
@@ -387,7 +453,7 @@ td:first-child, th:first-child{text-align:right;}
     </div>
 
     <!-- ===== التقرير الشامل ===== -->
-    <div class="content" id="page-reports">
+    <div class="content active" id="page-reports">
       <div class="panel">
         <div class="inline-form">
           <div class="fld"><label>الفترة</label>
@@ -404,20 +470,39 @@ td:first-child, th:first-child{text-align:right;}
       </div>
 
       <div id="reportArea">
-        <div class="cards-row">
-          <div class="stat-card"><div class="lbl">مجموع الإنتاج بالفترة</div><div class="val num" id="repTotal">0</div></div>
-          <div class="stat-card" id="cardEntriesCount"><div class="lbl">عدد الإدخالات</div><div class="val num" id="repCount">0</div></div>
-          <div class="stat-card"><div class="lbl">عدد المشاكل المسجلة</div><div class="val num" id="repProblems">0</div></div>
-          <div class="stat-card"><div class="lbl">إجمالي دقائق التوقف</div><div class="val num" id="repStopMin">0</div></div>
+        <div class="panel hero-panel">
+          <div class="hero-total-row">
+            <div class="hero-total">
+              <div class="lbl">إجمالي الإنتاج بالفترة</div>
+              <div class="hero-num num" id="repHeroTotal">0</div>
+            </div>
+            <div class="hero-lines" id="repHeroLines"></div>
+          </div>
+          <div class="chart-wrap" dir="ltr" style="height:190px; max-width:620px; margin:14px auto 0;"><canvas id="dashBarChart"></canvas></div>
+          <div class="empty" id="dashBarEmpty" style="display:none;">لا توجد بيانات لهذه الفترة</div>
         </div>
 
         <div class="panel">
-          <h3>تطور الإنتاج اليومي حسب الخط</h3>
-          <div dir="ltr" style="height:280px;"><canvas id="repTrendChart"></canvas></div>
-          <div class="empty" id="repTrendEmpty" style="display:none;">لا توجد بيانات كافية لهذه الفترة</div>
+          <div class="split-2">
+            <div class="split-col">
+              <h3>توزيع الإنتاج حسب الخط</h3>
+              <div class="chart-wrap" dir="ltr" style="max-width:260px; margin:0 auto;"><canvas id="lineDonutChart"></canvas></div>
+              <div class="empty" id="donutEmpty" style="display:none;">لا توجد بيانات لهذه الفترة</div>
+            </div>
+            <div class="split-col">
+              <h3>تطور الإنتاج اليومي حسب الخط</h3>
+              <div class="chart-wrap" dir="ltr" style="height:220px;"><canvas id="repTrendChart"></canvas></div>
+              <div class="empty" id="repTrendEmpty" style="display:none;">لا توجد بيانات كافية لهذه الفترة</div>
+            </div>
+          </div>
           <div class="tbl-wrap" id="repTrendTableWrap" style="margin-top:16px;">
             <div class="grid-table" id="repTrendTable"></div>
           </div>
+        </div>
+
+        <div class="cards-row" style="grid-template-columns:repeat(2,1fr);">
+          <div class="stat-card"><div class="lbl">عدد المشاكل المسجلة</div><div class="val num" id="repProblems">0</div></div>
+          <div class="stat-card"><div class="lbl">إجمالي دقائق التوقف</div><div class="val num" id="repStopMin">0</div></div>
         </div>
 
         <div class="panel">
@@ -474,6 +559,22 @@ td:first-child, th:first-child{text-align:right;}
       </div>
     </div>
 
+  </div>
+</div>
+
+<!-- ===== نافذة تعديل الإدخال ===== -->
+<div class="modal-overlay" id="editModalOverlay" style="display:none;">
+  <div class="modal-box" id="editModalBox">
+    <div class="modal-header">
+      <h3 id="editModalTitle">تعديل الإدخال</h3>
+      <button class="modal-close" onclick="closeEditModal()">✕</button>
+    </div>
+    <div id="editModalMsg"></div>
+    <div class="form-grid" id="editModalFields"></div>
+    <div class="form-actions">
+      <button class="btn primary" id="editModalSaveBtn">حفظ التعديلات</button>
+      <button class="btn ghost" onclick="closeEditModal()">إلغاء</button>
+    </div>
   </div>
 </div>
 
@@ -595,22 +696,33 @@ function enterApp(){
   document.getElementById('roleBadge').textContent = myProfile.role === 'admin' ? 'أدمن' : myProfile.role;
 
   const isAdminOrManager = (myProfile.role === 'admin' || myProfile.role === 'مسؤول');
+  const isWarehouse = myProfile.role === 'مخزن';
   document.getElementById('navDashboard').style.display = isAdminOrManager ? 'flex' : 'none';
   document.getElementById('navEntriesList').style.display = isAdminOrManager ? 'flex' : 'none';
   document.getElementById('navLines').style.display = isAdminOrManager ? 'flex' : 'none';
   document.getElementById('navModels').style.display = isAdminOrManager ? 'flex' : 'none';
   document.getElementById('navUsers').style.display = isAdminOrManager ? 'flex' : 'none';
   document.getElementById('navReports').style.display = isAdminOrManager ? 'flex' : 'none';
+  document.getElementById('navEntry').style.display = isWarehouse ? 'none' : 'flex';
+  document.getElementById('navWarehouse').style.display = (isAdminOrManager || isWarehouse) ? 'flex' : 'none';
 
   document.getElementById('fDate').valueAsDate = new Date();
+  document.getElementById('fWhDate').valueAsDate = new Date();
   loadNotes();
 
   if(isAdminOrManager){
     loadLinesAndModels().then(()=>{
       loadDashboard();
       loadMyEntries();
+      loadWarehouseEntries();
+      showPage('reports', document.getElementById('navReports'));
     });
     loadUsers();
+  } else if(isWarehouse){
+    showPage('warehouse', document.getElementById('navWarehouse'));
+    loadLinesAndModels().then(()=>{
+      loadWarehouseEntries();
+    });
   } else {
     showPage('entry', document.getElementById('navEntry'));
     loadLinesAndModels().then(()=>{
@@ -641,7 +753,7 @@ async function markNoteRead(id){
 }
 
 // ================= التنقل بين الصفحات =================
-const pageTitles = { dashboard:'لوحة التحكم', entry:'إدخال الإنتاج', entrieslist:'الإدخالات', lines:'خطوط الإنتاج', models:'الموديلات', users:'المستخدمون', reports:'التقرير الشامل' };
+const pageTitles = { dashboard:'لوحة التحكم', entry:'إدخال الإنتاج', warehouse:'إدخال المخزن', entrieslist:'الإدخالات', lines:'خطوط الإنتاج', models:'الموديلات', users:'المستخدمون', reports:'التقرير الشامل' };
 function showPage(page, btn){
   document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
   document.getElementById('page-' + page).classList.add('active');
@@ -654,6 +766,7 @@ function showPage(page, btn){
   if(page === 'users') loadUsers();
   if(page === 'dashboard') loadDashboard();
   if(page === 'entrieslist') loadMyEntries();
+  if(page === 'warehouse') loadWarehouseEntries();
   if(page === 'reports') loadReport();
 }
 
@@ -668,6 +781,10 @@ async function loadLinesAndModels(refreshTables){
   fLine.innerHTML = '<option value="">اختر الخط</option>' + allLines.map(l => `<option value="${l.id}">${l.name}</option>`).join('');
   const fModel = document.getElementById('fModel');
   fModel.innerHTML = '<option value="">اختر الموديل</option>' + allModels.map(m => `<option value="${m.id}">${m.name}</option>`).join('');
+  const fWhLine = document.getElementById('fWhLine');
+  if(fWhLine) fWhLine.innerHTML = '<option value="">اختر الخط</option>' + allLines.map(l => `<option value="${l.id}">${l.name}</option>`).join('');
+  const fWhModel = document.getElementById('fWhModel');
+  if(fWhModel) fWhModel.innerHTML = '<option value="">اختر الموديل</option>' + allModels.map(m => `<option value="${m.id}">${m.name}</option>`).join('');
 
   document.getElementById('statLines').textContent = allLines.length;
   document.getElementById('statModels').textContent = allModels.length;
@@ -806,7 +923,7 @@ async function loadMyEntries(){
     <div class="gt-cell">${r.stopped ? 'نعم' : 'لا'}</div>
     <div class="gt-cell gt-name">${namesMap[r.created_by] || (r.created_by === currentUser.id ? myProfile.full_name : '—')}</div>
     <div class="gt-cell">${r.image_url ? `<a href="${r.image_url}" target="_blank"><img src="${r.image_url}" style="width:34px;height:34px;object-fit:cover;border-radius:6px;"></a>` : '—'}</div>
-    <div class="gt-cell">${isAdminOrManager ? `<button class="btn red-o" onclick="deleteEntry('${r.id}')">حذف</button>` : ''}</div>
+    <div class="gt-cell" style="gap:4px; flex-wrap:wrap;">${isAdminOrManager ? `<button class="btn outline btn-sm" onclick="openEditProductionEntry('${r.id}')">تعديل</button><button class="btn red-o btn-sm" onclick="deleteEntry('${r.id}')">حذف</button>` : ''}</div>
   `).join('');
   gridEl.insertAdjacentHTML('beforeend', rowsHtml);
   document.getElementById('myEntriesEmpty').style.display = rows.length ? 'none' : 'block';
@@ -839,26 +956,206 @@ async function deleteEntry(id){
   loadDashboard();
 }
 
-// ================= لوحة التحكم =================
-async function loadDashboard(){
-  const { data, error } = await sb.from('production_entries').select('*').order('created_at', { ascending:false }).limit(500);
-  const rows = data || [];
-  const total = rows.reduce((s,r) => s + (r.quantity || 0), 0);
-  document.getElementById('statTotal').textContent = total;
-  document.getElementById('statEntries').textContent = rows.length;
+// ================= إدخال المخزن =================
+function resetWarehouseForm(){
+  document.getElementById('fWhDate').valueAsDate = new Date();
+  document.getElementById('fWhLine').value = '';
+  document.getElementById('fWhModel').value = '';
+  document.getElementById('fWhQty').value = 0;
+  document.getElementById('fWhNotes').value = '';
+  document.getElementById('whMsg').innerHTML = '';
+}
 
-  const body = document.querySelector('#dashTable tbody');
-  const recent = rows.slice(0,10);
+async function submitWarehouseEntry(){
+  const msg = document.getElementById('whMsg');
+  const lineId = document.getElementById('fWhLine').value;
+  if(!lineId){ msg.innerHTML = '<div class="msg err">الرجاء اختيار خط الإنتاج</div>'; return; }
+  const payload = {
+    entry_date: document.getElementById('fWhDate').value,
+    line_id: lineId,
+    model_id: document.getElementById('fWhModel').value || null,
+    quantity: parseInt(document.getElementById('fWhQty').value) || 0,
+    notes: document.getElementById('fWhNotes').value.trim() || null,
+    created_by: currentUser.id
+  };
+  const { error } = await sb.from('warehouse_entries').insert(payload);
+  if(error){ msg.innerHTML = '<div class="msg err">حدث خطأ: ' + error.message + '</div>'; return; }
+  msg.innerHTML = '<div class="msg ok">تم حفظ إدخال المخزن بنجاح</div>';
+  resetWarehouseForm();
+  loadWarehouseEntries();
+}
+
+async function loadWarehouseEntries(){
+  const isAdminOrManager = (myProfile.role === 'admin' || myProfile.role === 'مسؤول');
+  let query = sb.from('warehouse_entries').select('*').order('entry_date', { ascending:false }).order('created_at', { ascending:false });
+  query = isAdminOrManager ? query.limit(200) : query.eq('created_by', currentUser.id).limit(30);
+  const { data, error } = await query;
+  const gridEl = document.getElementById('whEntriesTable');
+  const rows = data || [];
+  document.getElementById('whEntriesTitle').textContent = isAdminOrManager ? 'كل إدخالات المخزن' : 'إدخالات المخزن الأخيرة';
   const namesMap = {};
   allProfilesCache.forEach(p => namesMap[p.id] = p.full_name);
-  body.innerHTML = recent.map(r => `<tr>
-    <td>${r.entry_date}</td><td>${lineName(r.line_id)}</td><td>${modelName(r.model_id)}</td>
-    <td class="num">${r.quantity}</td><td>${namesMap[r.created_by] || '—'}</td>
-  </tr>`).join('');
-  document.getElementById('dashEmpty').style.display = recent.length ? 'none' : 'block';
 
-  renderDonutChart(rows);
-  renderDashBarChart(rows);
+  while(gridEl.children.length > 7){ gridEl.removeChild(gridEl.lastChild); }
+
+  const rowsHtml = rows.map(r => `
+    <div class="gt-cell">${r.entry_date}</div>
+    <div class="gt-cell">${lineName(r.line_id)}</div>
+    <div class="gt-cell gt-name">${modelName(r.model_id)}</div>
+    <div class="gt-cell">${r.quantity}</div>
+    <div class="gt-cell gt-name">${r.notes || '—'}</div>
+    <div class="gt-cell gt-name">${namesMap[r.created_by] || (r.created_by === currentUser.id ? myProfile.full_name : '—')}</div>
+    <div class="gt-cell" style="gap:4px; flex-wrap:wrap;">${isAdminOrManager ? `<button class="btn outline btn-sm" onclick="openEditWarehouseEntry('${r.id}')">تعديل</button><button class="btn red-o btn-sm" onclick="deleteWarehouseEntry('${r.id}')">حذف</button>` : ''}</div>
+  `).join('');
+  gridEl.insertAdjacentHTML('beforeend', rowsHtml);
+  document.getElementById('whEntriesEmpty').style.display = rows.length ? 'none' : 'block';
+}
+
+async function deleteWarehouseEntry(id){
+  if(!confirm('متأكد من حذف هذا الإدخال؟')) return;
+  const { error } = await sb.from('warehouse_entries').delete().eq('id', id);
+  if(error){ alert('حدث خطأ: ' + error.message); return; }
+  loadWarehouseEntries();
+}
+
+// ================= تعديل الإدخالات (أدمن / مسؤول) =================
+function closeEditModal(){
+  document.getElementById('editModalOverlay').style.display = 'none';
+  document.getElementById('editModalFields').innerHTML = '';
+  document.getElementById('editModalMsg').innerHTML = '';
+}
+
+async function openEditProductionEntry(id){
+  const { data: r, error } = await sb.from('production_entries').select('*').eq('id', id).single();
+  if(error || !r){ alert('تعذر تحميل بيانات الإدخال'); return; }
+  document.getElementById('editModalTitle').textContent = 'تعديل إدخال الإنتاج';
+  const fieldsEl = document.getElementById('editModalFields');
+  fieldsEl.innerHTML = `
+    <div><label>التاريخ *</label><input type="date" id="editDate" value="${r.entry_date}"></div>
+    <div><label>خط الإنتاج *</label><select id="editLine">${allLines.map(l => `<option value="${l.id}" ${l.id===r.line_id?'selected':''}>${l.name}</option>`).join('')}</select></div>
+    <div><label>الموديل</label><select id="editModel"><option value="">بدون</option>${allModels.map(m => `<option value="${m.id}" ${m.id===r.model_id?'selected':''}>${m.name}</option>`).join('')}</select></div>
+    <div><label>الكمية المنتجة *</label><input type="number" id="editQty" min="0" value="${r.quantity||0}"></div>
+    <div><label>عدد العمال (الحاضرين)</label><input type="number" id="editWorkers" min="0" value="${r.workers_count||0}"></div>
+    <div><label>عدد الغياب</label><input type="number" id="editAbsent" min="0" value="${r.absent_count||0}"></div>
+    <div><label>هل توقف الخط؟</label><select id="editStopped"><option value="false" ${!r.stopped?'selected':''}>لا يوجد توقف</option><option value="true" ${r.stopped?'selected':''}>نعم يوجد توقف</option></select></div>
+    <div><label>مدة التوقف (دقيقة)</label><input type="number" id="editStopMin" min="0" value="${r.stop_minutes||0}"></div>
+    <div><label>عدد الأعطال المبلّغة</label><input type="number" id="editFaultsReported" min="0" value="${r.faults_reported||0}"></div>
+    <div><label>عدد الأعطال التي تم إصلاحها</label><input type="number" id="editFaultsFixed" min="0" value="${r.faults_fixed||0}"></div>
+    <div><label>سبب التوقف</label><input type="text" id="editStopReason" value="${r.stop_reason||''}"></div>
+    <div><label>نوع المشكلة / العيب</label><input type="text" id="editProblemType" value="${r.problem_type||''}"></div>
+    <div><label>المادة الناقصة (إن وجدت)</label><input type="text" id="editMissingMaterial" value="${r.missing_material||''}"></div>
+    <div class="full"><label>ملاحظات</label><textarea id="editNotes" rows="3">${r.notes||''}</textarea></div>
+  `;
+  document.getElementById('editModalMsg').innerHTML = '';
+  document.getElementById('editModalSaveBtn').onclick = () => saveEditProductionEntry(id);
+  document.getElementById('editModalOverlay').style.display = 'flex';
+}
+
+async function saveEditProductionEntry(id){
+  const msg = document.getElementById('editModalMsg');
+  const lineId = document.getElementById('editLine').value;
+  if(!lineId){ msg.innerHTML = '<div class="msg err">الرجاء اختيار خط الإنتاج</div>'; return; }
+  const payload = {
+    entry_date: document.getElementById('editDate').value,
+    line_id: lineId,
+    model_id: document.getElementById('editModel').value || null,
+    quantity: parseInt(document.getElementById('editQty').value) || 0,
+    workers_count: parseInt(document.getElementById('editWorkers').value) || 0,
+    absent_count: parseInt(document.getElementById('editAbsent').value) || 0,
+    stopped: document.getElementById('editStopped').value === 'true',
+    stop_minutes: parseInt(document.getElementById('editStopMin').value) || 0,
+    stop_reason: document.getElementById('editStopReason').value.trim() || null,
+    faults_reported: parseInt(document.getElementById('editFaultsReported').value) || 0,
+    faults_fixed: parseInt(document.getElementById('editFaultsFixed').value) || 0,
+    problem_type: document.getElementById('editProblemType').value.trim() || null,
+    missing_material: document.getElementById('editMissingMaterial').value.trim() || null,
+    notes: document.getElementById('editNotes').value.trim() || null
+  };
+  const { error } = await sb.from('production_entries').update(payload).eq('id', id);
+  if(error){ msg.innerHTML = '<div class="msg err">حدث خطأ: ' + error.message + '</div>'; return; }
+  closeEditModal();
+  loadMyEntries();
+  loadDashboard();
+  if(document.getElementById('page-reports').classList.contains('active')) loadReport();
+}
+
+async function openEditWarehouseEntry(id){
+  const { data: r, error } = await sb.from('warehouse_entries').select('*').eq('id', id).single();
+  if(error || !r){ alert('تعذر تحميل بيانات الإدخال'); return; }
+  document.getElementById('editModalTitle').textContent = 'تعديل إدخال المخزن';
+  const fieldsEl = document.getElementById('editModalFields');
+  fieldsEl.innerHTML = `
+    <div><label>التاريخ *</label><input type="date" id="editWhDate2" value="${r.entry_date}"></div>
+    <div><label>خط الإنتاج *</label><select id="editWhLine2">${allLines.map(l => `<option value="${l.id}" ${l.id===r.line_id?'selected':''}>${l.name}</option>`).join('')}</select></div>
+    <div><label>الموديل</label><select id="editWhModel2"><option value="">بدون</option>${allModels.map(m => `<option value="${m.id}" ${m.id===r.model_id?'selected':''}>${m.name}</option>`).join('')}</select></div>
+    <div><label>الكمية المستلمة بالمخزن *</label><input type="number" id="editWhQty2" min="0" value="${r.quantity||0}"></div>
+    <div class="full"><label>ملاحظات</label><textarea id="editWhNotes2" rows="3">${r.notes||''}</textarea></div>
+  `;
+  document.getElementById('editModalMsg').innerHTML = '';
+  document.getElementById('editModalSaveBtn').onclick = () => saveEditWarehouseEntry(id);
+  document.getElementById('editModalOverlay').style.display = 'flex';
+}
+
+async function saveEditWarehouseEntry(id){
+  const msg = document.getElementById('editModalMsg');
+  const lineId = document.getElementById('editWhLine2').value;
+  if(!lineId){ msg.innerHTML = '<div class="msg err">الرجاء اختيار خط الإنتاج</div>'; return; }
+  const payload = {
+    entry_date: document.getElementById('editWhDate2').value,
+    line_id: lineId,
+    model_id: document.getElementById('editWhModel2').value || null,
+    quantity: parseInt(document.getElementById('editWhQty2').value) || 0,
+    notes: document.getElementById('editWhNotes2').value.trim() || null
+  };
+  const { error } = await sb.from('warehouse_entries').update(payload).eq('id', id);
+  if(error){ msg.innerHTML = '<div class="msg err">حدث خطأ: ' + error.message + '</div>'; return; }
+  closeEditModal();
+  loadWarehouseEntries();
+  loadDashboard();
+}
+
+// ================= لوحة التحكم =================
+async function loadDashboard(){
+  const { data: qtyData } = await sb.from('production_entries').select('quantity, model_id');
+  const prodRows = qtyData || [];
+  const total = prodRows.reduce((s,r) => s + (r.quantity || 0), 0);
+  document.getElementById('statTotal').textContent = total;
+
+  const { count } = await sb.from('production_entries').select('*', { count:'exact', head:true });
+  document.getElementById('statEntries').textContent = count || 0;
+
+  const { data: whData } = await sb.from('warehouse_entries').select('quantity');
+  const whRows = whData || [];
+  const whTotal = whRows.reduce((s,r) => s + (r.quantity || 0), 0);
+  document.getElementById('cmpProduction').textContent = total;
+  document.getElementById('cmpWarehouse').textContent = whTotal;
+  const diff = total - whTotal;
+  const diffEl = document.getElementById('cmpDiffLine');
+  if(diff === 0){
+    diffEl.innerHTML = '<span style="color:var(--green); font-weight:700;">✅ الأرقام متطابقة</span>';
+  } else if(diff > 0){
+    diffEl.innerHTML = `<span style="color:#f59e0b; font-weight:700;">⚠️ الإنتاج أكبر من المخزن بمقدار <span class="num">${diff}</span></span>`;
+  } else {
+    diffEl.innerHTML = `<span style="color:var(--red); font-weight:700;">⚠️ المخزن أكبر من الإنتاج بمقدار <span class="num">${Math.abs(diff)}</span></span>`;
+  }
+
+  // إجمالي الإنتاج حسب كل موديل (كل الفترات)
+  const modelTotals = {};
+  prodRows.forEach(r => {
+    const name = modelName(r.model_id);
+    modelTotals[name] = (modelTotals[name] || 0) + (r.quantity || 0);
+  });
+  const modelEntries = Object.entries(modelTotals).sort((a,b) => b[1]-a[1]);
+  const modelGridEl = document.getElementById('dashModelTable');
+  while(modelGridEl.children.length > 2){ modelGridEl.removeChild(modelGridEl.lastChild); }
+  let modelRowsHtml = modelEntries.map(([name, qty]) =>
+    `<div class="gt-cell gt-name">${name}</div><div class="gt-cell">${qty}</div>`
+  ).join('');
+  if(modelEntries.length){
+    modelRowsHtml += `<div class="gt-cell gt-name" style="font-weight:800;">الإجمالي</div><div class="gt-cell" style="font-weight:800;">${total}</div>`;
+  }
+  modelGridEl.insertAdjacentHTML('beforeend', modelRowsHtml);
+  document.getElementById('dashModelEmpty').style.display = modelEntries.length ? 'none' : 'block';
 }
 
 const CHART_COLORS = ['#2f6fed','#16a34a','#f59e0b','#dc2626','#7c5cf0','#0ea5e9','#b6902a','#059669'];
@@ -1048,6 +1345,7 @@ async function loadUsers(){
     if(isAdmin){
       roleCell = `<select onchange="changeRole('${u.id}', this.value)">
         <option value="موظف" ${u.role==='موظف'?'selected':''}>موظف</option>
+        <option value="مخزن" ${u.role==='مخزن'?'selected':''}>موظف مخزن</option>
         <option value="مسؤول" ${u.role==='مسؤول'?'selected':''}>مسؤول</option>
         <option value="admin" ${u.role==='admin'?'selected':''}>أدمن</option>
       </select>`;
@@ -1137,10 +1435,24 @@ async function loadReport(){
   const stopMin = rows.reduce((s,r) => s + (r.stop_minutes||0), 0);
   const problemsCount = rows.filter(r => r.problem_type).length;
 
-  document.getElementById('repTotal').textContent = total;
-  document.getElementById('repCount').textContent = rows.length;
+  document.getElementById('repHeroTotal').textContent = total;
   document.getElementById('repProblems').textContent = problemsCount;
   document.getElementById('repStopMin').textContent = stopMin;
+
+  // قائمة سريعة لإجمالي كل خط (الملخص التنفيذي)
+  const heroLineTotals = {};
+  rows.forEach(r => {
+    const name = lineName(r.line_id);
+    heroLineTotals[name] = (heroLineTotals[name] || 0) + (r.quantity || 0);
+  });
+  const heroEntries = Object.entries(heroLineTotals).sort((a,b) => b[1]-a[1]);
+  document.getElementById('repHeroLines').innerHTML = heroEntries.map(([name, qty]) =>
+    `<div class="hero-line-item"><span class="n num">${qty}</span><span class="t">${name}</span></div>`
+  ).join('') || '<div class="empty" style="padding:8px;">لا توجد بيانات لهذه الفترة</div>';
+
+  // رسوم الملخص التنفيذي (تتحدث حسب الفترة المختارة)
+  renderDonutChart(rows);
+  renderDashBarChart(rows);
 
   // مقارنة الخطوط
   const lineStats = {};
