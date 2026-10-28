@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>أبراج الأهرام — متابعة خطوط الإنتاج</title>
-<link rel="manifest" href="/manifest.json">
+<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0f1c3f">
-<link rel="icon" href="/icons/icon-192.png">
-<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="أبراج الأهرام">
@@ -37,10 +37,6 @@ body[data-theme="dark"]{ --navy:#0b0e14; --navy2:#05070b; --gold:#d4a94a; --gold
 body{background:var(--bg); color:var(--text); font-family:'IBM Plex Sans Arabic','Tajawal',sans-serif; font-size:15.5px;}
 h1,h2,h3,.brand{font-family:'Tajawal',sans-serif;}
 button,select,input,textarea{font-family:inherit; font-size:inherit;}
-/* إصلاح خانات التاريخ بالموبايل: النص الافتراضي (يوم/شهر/سنة) يطلع مقلوب ومقطّع بالعربي */
-input[type="date"]{direction:ltr; text-align:right;}
-input[type="date"]::-webkit-date-and-time-value{text-align:right;}
-input[type="date"].date-empty::-webkit-datetime-edit{color:transparent;}
 .num{font-variant-numeric:tabular-nums; direction:ltr; unicode-bidi:isolate; display:inline-block;}
 
 /* ===== login ===== */
@@ -673,7 +669,7 @@ td:first-child, th:first-child{text-align:right;}
 
           <div id="morningFormBox">
             <div class="form-grid">
-              <div><label>التاريخ *</label><input type="date" id="mDate"></div>
+              <div><label>التاريخ *</label><input type="date" lang="en" dir="ltr" id="mDate"></div>
               <div><label>خط الإنتاج *</label><select id="mLine" disabled><option value="">جاري تحميل الخطوط...</option></select><input type="text" id="mLineDisplay" readonly disabled style="display:none;"></div>
               <div><label>وقت البدء *</label>
                 <div style="display:flex; gap:6px;">
@@ -684,7 +680,7 @@ td:first-child, th:first-child{text-align:right;}
               </div>
             </div>
             <div class="form-actions">
-              <button class="btn primary" onclick="submitMorningEntry()">حفظ بداية الدوام</button>
+              <button class="btn primary" id="morningSubmitBtn" onclick="submitMorningEntry()">حفظ بداية الدوام</button>
               <button class="btn ghost" onclick="resetMorningForm()">مسح الحقول</button>
             </div>
           </div>
@@ -734,7 +730,7 @@ td:first-child, th:first-child{text-align:right;}
               <select id="eLinePicker" onchange="selectOpenEntryForAdmin(this.value)"></select>
             </div>
             <div class="form-grid">
-              <div><label>التاريخ</label><input type="date" id="eDate" readonly disabled></div>
+              <div><label>التاريخ</label><input type="date" lang="en" dir="ltr" id="eDate" readonly disabled></div>
               <div><label>خط الإنتاج</label><input type="text" id="eLineDisplay" readonly disabled></div>
               <div><label>وقت الانتهاء *</label>
                 <div style="display:flex; gap:6px;">
@@ -786,7 +782,7 @@ td:first-child, th:first-child{text-align:right;}
         <h3>إدخال إنتاج المخزن</h3>
         <div id="whMsg"></div>
         <div class="form-grid">
-          <div><label>التاريخ *</label><input type="date" id="fWhDate"></div>
+          <div><label>التاريخ *</label><input type="date" lang="en" dir="ltr" id="fWhDate"></div>
           <div><label>خط الإنتاج *</label><select id="fWhLine" disabled><option value="">جاري تحميل الخطوط...</option></select></div>
           <div><label>نوع المنتج</label><select id="fWhProductType" onchange="filterModelsByType('fWhProductType','fWhModel')"><option value="">اختاري النوع أول</option></select></div>
           <div><label>الموديل</label><select id="fWhModel" disabled><option value="">جاري تحميل الموديلات...</option></select></div>
@@ -836,7 +832,7 @@ td:first-child, th:first-child{text-align:right;}
         <h3>تسجيل تصدير/طلوع من المخزن</h3>
         <div id="shipOutMsg"></div>
         <div class="form-grid">
-          <div><label>التاريخ *</label><input type="date" id="soDate"></div>
+          <div><label>التاريخ *</label><input type="date" lang="en" dir="ltr" id="soDate"></div>
           <div><label>الموديل</label><select id="soModel"></select></div>
           <div><label>الحجم</label><select id="soSize">
             <option value="">اختر الحجم</option>
@@ -919,7 +915,7 @@ td:first-child, th:first-child{text-align:right;}
             </select>
           </div>
           <div><label>الكمية *</label><input type="number" id="rmMoveQty" min="0" step="any" placeholder="0"></div>
-          <div><label>التاريخ *</label><input type="date" id="rmMoveDate"></div>
+          <div><label>التاريخ *</label><input type="date" lang="en" dir="ltr" id="rmMoveDate"></div>
           <div class="full"><label>ملاحظات</label><textarea id="rmMoveNotes" rows="2"></textarea></div>
         </div>
         <div class="form-actions">
@@ -988,7 +984,7 @@ td:first-child, th:first-child{text-align:right;}
           <div><label>الماكينة *</label><select id="prodMachine"></select></div>
           <div><label>المنتج</label><input type="text" id="prodProduct" placeholder="مثال: حوض غسالة"></div>
           <div><label>الكمية المنتجة *</label><input type="number" id="prodQty" min="0" placeholder="0"></div>
-          <div><label>التاريخ *</label><input type="date" id="prodDate"></div>
+          <div><label>التاريخ *</label><input type="date" lang="en" dir="ltr" id="prodDate"></div>
         </div>
         <div class="form-actions">
           <button class="btn primary" onclick="saveProdLog()">حفظ الإنتاج</button>
@@ -1008,8 +1004,8 @@ td:first-child, th:first-child{text-align:right;}
         <div id="stopMsg"></div>
         <div class="form-grid">
           <div><label>الماكينة *</label><select id="stopMachine"></select></div>
-          <div><label>وقت بداية التوقف *</label><input type="date" id="stopStartDate" style="margin-bottom:6px;"><div style="display:flex; gap:6px;"><select id="stopStartT_h" style="flex:1;"></select><select id="stopStartT_m" style="flex:1;"></select><select id="stopStartT_ap" style="flex:1;"><option value="ص">صباحًا</option><option value="م">مساءً</option></select></div></div>
-          <div><label>وقت انتهاء التوقف</label><input type="date" id="stopEndDate" style="margin-bottom:6px;"><div style="display:flex; gap:6px;"><select id="stopEndT_h" style="flex:1;"><option value="">--</option></select><select id="stopEndT_m" style="flex:1;"></select><select id="stopEndT_ap" style="flex:1;"><option value="ص">صباحًا</option><option value="م">مساءً</option></select></div></div>
+          <div><label>وقت بداية التوقف *</label><input type="date" lang="en" dir="ltr" id="stopStartDate" style="margin-bottom:6px;"><div style="display:flex; gap:6px;"><select id="stopStartT_h" style="flex:1;"></select><select id="stopStartT_m" style="flex:1;"></select><select id="stopStartT_ap" style="flex:1;"><option value="ص">صباحًا</option><option value="م">مساءً</option></select></div></div>
+          <div><label>وقت انتهاء التوقف</label><input type="date" lang="en" dir="ltr" id="stopEndDate" style="margin-bottom:6px;"><div style="display:flex; gap:6px;"><select id="stopEndT_h" style="flex:1;"><option value="">--</option></select><select id="stopEndT_m" style="flex:1;"></select><select id="stopEndT_ap" style="flex:1;"><option value="ص">صباحًا</option><option value="م">مساءً</option></select></div></div>
           <div><label>سبب التوقف</label><input type="text" id="stopReason" placeholder="مثال: عطل كهربائي"></div>
           <div class="full"><label>ملاحظات</label><textarea id="stopNotes" rows="2"></textarea></div>
         </div>
@@ -1071,7 +1067,7 @@ td:first-child, th:first-child{text-align:right;}
           <div><label>المواصفات</label><input type="text" id="finSpecs" placeholder="مثال: 8 كغم، أبيض"></div>
           <div><label>الكمية *</label><input type="number" id="finQty" min="0" placeholder="0"></div>
           <div><label>موقع التخزين</label><input type="text" id="finLocation" placeholder="مثال: مخزن نهائي - رف 3"></div>
-          <div><label>تاريخ الإنتاج *</label><input type="date" id="finProdDate"></div>
+          <div><label>تاريخ الإنتاج *</label><input type="date" lang="en" dir="ltr" id="finProdDate"></div>
           <div><label>رقم الدفعة (اختياري)</label><input type="text" id="finBatch" placeholder="مثال: B-1024"></div>
           <div class="full"><label>ملاحظات</label><textarea id="finNotes" rows="2"></textarea></div>
         </div>
@@ -1181,7 +1177,7 @@ td:first-child, th:first-child{text-align:right;}
               <select id="filLine" onchange="loadMyEntries()"><option value="">الكل</option></select>
             </div>
             <div class="fld"><label>التاريخ</label>
-              <input type="date" id="filDate" onchange="loadMyEntries()">
+              <input type="date" lang="en" dir="ltr" id="filDate" onchange="loadMyEntries()">
             </div>
             <div class="fld"><label>الموديل</label>
               <select id="filModel" onchange="loadMyEntries()"><option value="">الكل</option></select>
@@ -1383,10 +1379,10 @@ td:first-child, th:first-child{text-align:right;}
       <div class="panel no-print">
         <div class="inline-form">
           <div class="fld"><label>اختر يوم معين</label>
-            <input type="date" id="hpRepDate" onchange="document.getElementById('hpRepFrom').value=''; document.getElementById('hpRepTo').value=''; loadHalfaProdReport();">
+            <input type="date" lang="en" dir="ltr" id="hpRepDate" onchange="document.getElementById('hpRepFrom').value=''; document.getElementById('hpRepTo').value=''; loadHalfaProdReport();">
           </div>
-          <div class="fld"><label>أو من تاريخ</label><input type="date" id="hpRepFrom" onchange="document.getElementById('hpRepDate').value=''; loadHalfaProdReport();"></div>
-          <div class="fld"><label>إلى تاريخ</label><input type="date" id="hpRepTo" onchange="document.getElementById('hpRepDate').value=''; loadHalfaProdReport();"></div>
+          <div class="fld"><label>أو من تاريخ</label><input type="date" lang="en" dir="ltr" id="hpRepFrom" onchange="document.getElementById('hpRepDate').value=''; loadHalfaProdReport();"></div>
+          <div class="fld"><label>إلى تاريخ</label><input type="date" lang="en" dir="ltr" id="hpRepTo" onchange="document.getElementById('hpRepDate').value=''; loadHalfaProdReport();"></div>
           <button class="btn" onclick="window.print()">🖨️ طباعة / حفظ PDF</button>
         </div>
         <div class="cards-row" id="halfaReportCards" style="margin-top:16px;"></div>
@@ -1431,10 +1427,10 @@ td:first-child, th:first-child{text-align:right;}
       <div class="panel no-print">
         <div class="inline-form">
           <div class="fld"><label>اختر يوم معين</label>
-            <input type="date" id="fpRepDate" onchange="document.getElementById('fpRepFrom').value=''; document.getElementById('fpRepTo').value=''; loadFelinProdReport();">
+            <input type="date" lang="en" dir="ltr" id="fpRepDate" onchange="document.getElementById('fpRepFrom').value=''; document.getElementById('fpRepTo').value=''; loadFelinProdReport();">
           </div>
-          <div class="fld"><label>أو من تاريخ</label><input type="date" id="fpRepFrom" onchange="document.getElementById('fpRepDate').value=''; loadFelinProdReport();"></div>
-          <div class="fld"><label>إلى تاريخ</label><input type="date" id="fpRepTo" onchange="document.getElementById('fpRepDate').value=''; loadFelinProdReport();"></div>
+          <div class="fld"><label>أو من تاريخ</label><input type="date" lang="en" dir="ltr" id="fpRepFrom" onchange="document.getElementById('fpRepDate').value=''; loadFelinProdReport();"></div>
+          <div class="fld"><label>إلى تاريخ</label><input type="date" lang="en" dir="ltr" id="fpRepTo" onchange="document.getElementById('fpRepDate').value=''; loadFelinProdReport();"></div>
           <button class="btn" onclick="window.print()">🖨️ طباعة / حفظ PDF</button>
         </div>
       </div>
@@ -1567,8 +1563,8 @@ td:first-child, th:first-child{text-align:right;}
         <div class="panel">
           <h3>📊 فترة التقرير</h3>
           <div class="form-grid">
-            <div><label>من تاريخ</label><input type="date" id="genRepFrom"></div>
-            <div><label>إلى تاريخ</label><input type="date" id="genRepTo"></div>
+            <div><label>من تاريخ</label><input type="date" lang="en" dir="ltr" id="genRepFrom"></div>
+            <div><label>إلى تاريخ</label><input type="date" lang="en" dir="ltr" id="genRepTo"></div>
             <div style="align-self:end; display:flex; gap:10px;">
               <button class="btn primary" onclick="loadGenReportsPage()">تحديث التقرير</button>
               <button class="btn ghost" onclick="window.print()">طباعة</button>
@@ -1655,7 +1651,7 @@ td:first-child, th:first-child{text-align:right;}
         <h3>تسجيل إنتاج اليوم</h3>
         <div id="halfaProdMsg"></div>
         <div class="form-grid">
-          <div><label>التاريخ *</label><input type="date" id="hpDate"></div>
+          <div><label>التاريخ *</label><input type="date" lang="en" dir="ltr" id="hpDate"></div>
           <div><label>خط الإنتاج *</label><select id="hpLine"></select></div>
           <div><label>الشفت</label>
             <select id="hpShift">
@@ -1774,7 +1770,7 @@ td:first-child, th:first-child{text-align:right;}
             </select>
           </div>
           <div><label>الكمية *</label><input type="number" id="halfaMoveQty" min="0" step="any" placeholder="0"></div>
-          <div><label>التاريخ *</label><input type="date" id="halfaMoveDate"></div>
+          <div><label>التاريخ *</label><input type="date" lang="en" dir="ltr" id="halfaMoveDate"></div>
           <div class="full"><label>ملاحظات</label><textarea id="halfaMoveNotes" rows="2"></textarea></div>
         </div>
         <div class="form-actions">
@@ -1824,7 +1820,7 @@ td:first-child, th:first-child{text-align:right;}
           <div><label>القياس</label><select id="halfaFinMeas"></select></div>
           <div><label>الكمية *</label><input type="number" id="halfaFinQty" min="0" step="any" placeholder="0"></div>
           <div><label>موقع التخزين</label><input type="text" id="halfaFinLocation" placeholder="مثال: مخزن الحلفة - رف 1"></div>
-          <div><label>التاريخ *</label><input type="date" id="halfaFinDate"></div>
+          <div><label>التاريخ *</label><input type="date" lang="en" dir="ltr" id="halfaFinDate"></div>
           <div class="full"><label>ملاحظات</label><textarea id="halfaFinNotes" rows="2"></textarea></div>
         </div>
         <div class="form-actions">
@@ -1864,7 +1860,7 @@ td:first-child, th:first-child{text-align:right;}
         <h3>تسجيل إنتاج اليوم</h3>
         <div id="felinProdMsg"></div>
         <div class="form-grid">
-          <div><label>التاريخ *</label><input type="date" id="fpDate" onchange="updateFelinDayName()"></div>
+          <div><label>التاريخ *</label><input type="date" lang="en" dir="ltr" id="fpDate" onchange="updateFelinDayName()"></div>
           <div><label>اليوم</label><input type="text" id="fpDayName" readonly style="background:#f3f3f3;"></div>
         </div>
 
@@ -1951,7 +1947,7 @@ td:first-child, th:first-child{text-align:right;}
             </select>
           </div>
           <div><label>الكمية *</label><input type="number" id="felinMoveQty" min="0" step="any" placeholder="0"></div>
-          <div><label>التاريخ *</label><input type="date" id="felinMoveDate"></div>
+          <div><label>التاريخ *</label><input type="date" lang="en" dir="ltr" id="felinMoveDate"></div>
           <div class="full"><label>ملاحظات</label><textarea id="felinMoveNotes" rows="2"></textarea></div>
         </div>
         <div class="form-actions">
@@ -1995,7 +1991,7 @@ td:first-child, th:first-child{text-align:right;}
           <div><label>القياس</label><select id="felinFinMeas"></select></div>
           <div><label>الكمية *</label><input type="number" id="felinFinQty" min="0" step="any" placeholder="0"></div>
           <div><label>موقع التخزين</label><input type="text" id="felinFinLocation" placeholder="مثال: مخزن الفلين - رف 1"></div>
-          <div><label>التاريخ *</label><input type="date" id="felinFinDate"></div>
+          <div><label>التاريخ *</label><input type="date" lang="en" dir="ltr" id="felinFinDate"></div>
           <div class="full"><label>ملاحظات</label><textarea id="felinFinNotes" rows="2"></textarea></div>
         </div>
         <div class="form-actions">
@@ -2027,13 +2023,13 @@ td:first-child, th:first-child{text-align:right;}
       <div class="panel no-print">
         <div class="inline-form">
           <div class="fld"><label>اختر يوم معين</label>
-            <input type="date" id="repDate" autocomplete="off" onchange="document.getElementById('repFrom').value=''; document.getElementById('repTo').value=''; loadReport();">
+            <input type="date" lang="en" dir="ltr" id="repDate" autocomplete="off" onchange="document.getElementById('repFrom').value=''; document.getElementById('repTo').value=''; loadReport();">
           </div>
           <div class="fld"><label>أو من تاريخ</label>
-            <input type="date" id="repFrom" autocomplete="off" onchange="document.getElementById('repDate').value=''; loadReport();">
+            <input type="date" lang="en" dir="ltr" id="repFrom" autocomplete="off" onchange="document.getElementById('repDate').value=''; loadReport();">
           </div>
           <div class="fld"><label>إلى تاريخ</label>
-            <input type="date" id="repTo" autocomplete="off" onchange="document.getElementById('repDate').value=''; loadReport();">
+            <input type="date" lang="en" dir="ltr" id="repTo" autocomplete="off" onchange="document.getElementById('repDate').value=''; loadReport();">
           </div>
           <div class="report-toolbar">
             <button class="btn ghost report-action-btn" onclick="document.getElementById('repFrom').value=''; document.getElementById('repTo').value=''; loadReport();"><span class="rab-icon">🧹</span><span class="rab-text">مسح النطاق</span></button>
@@ -2239,7 +2235,7 @@ async function enableProblemNotifications(){
       msg.innerHTML = '<div class="msg err">لازم توافق على إذن الإشعارات من المتصفح حتى تشتغل</div>';
       return;
     }
-    const reg = await navigator.serviceWorker.register('/sw.js');
+    const reg = await navigator.serviceWorker.register('sw.js');
     await navigator.serviceWorker.ready;
     let sub = await reg.pushManager.getSubscription();
     if(!sub){
@@ -2277,7 +2273,7 @@ async function autoRequestNotificationPermission(){
 async function checkNotifStatus(){
   if(!('serviceWorker' in navigator) || !('PushManager' in window)) return;
   try{
-    const reg = await navigator.serviceWorker.getRegistration('/sw.js');
+    const reg = await navigator.serviceWorker.getRegistration('sw.js');
     if(reg){
       const sub = await reg.pushManager.getSubscription();
       if(sub){ document.getElementById('notifEnableBtn').textContent = 'الإشعارات مفعّلة ✅'; }
@@ -2379,7 +2375,7 @@ function setLoginMsg(text, ok){
 async function sendPasswordReset(){
   const email = document.getElementById('authEmail').value.trim();
   if(!email){ setLoginMsg('اكتبي بريدك الإلكتروني بالخانة فوك أول، وبعدها اضغطي "نسيت كلمة المرور؟"', false); return; }
-  const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin });
+  const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: window.location.href.split("?")[0].split("#")[0] });
   if(error){ setLoginMsg('تعذر إرسال رابط إعادة التعيين: ' + error.message, false); return; }
   setLoginMsg('تم إرسال رابط لإعادة تعيين كلمة المرور إلى بريدك الإلكتروني، افتحيه وسوي كلمة مرور جديدة', true);
 }
@@ -2657,7 +2653,12 @@ function enterApp(){
   if(window.feather) feather.replace();
 }
 
+const _recentNotifyKeys = {};
 async function notifyAdminsOfEntry(message, linkPage){
+  // إذا نفس الرسالة انرسلت قبل أقل من دقيقة (مثلاً من ضغطة زر مكررة)، ما نرسلها مرة ثانية
+  const nowMs = Date.now();
+  if(_recentNotifyKeys[message] && nowMs - _recentNotifyKeys[message] < 60000) return;
+  _recentNotifyKeys[message] = nowMs;
   try{
     const { data: admins } = await sb.from('profiles').select('id').in('role', ['admin','مدير']);
     const recipients = (admins||[]).filter(a => a.id !== currentUser.id);
@@ -3003,6 +3004,11 @@ async function addProductType(){
   loadProductTypes();
 }
 async function deleteProductType(id){
+  const linked = allModels.filter(m => m.product_type_id === id);
+  if(linked.length){
+    alert('ما ينحذف هذا النوع لأن مربوط بيه ' + linked.length + ' موديل:\n\n• ' + linked.map(m => m.name).join('\n• ') + '\n\nروحي لتبويب "الموديلات" وغيّري نوع هذني الموديلات لنوع ثاني، وبعدها احذفي النوع.');
+    return;
+  }
   if(!confirm('متأكد تريد تحذف هذا النوع؟')) return;
   const { error } = await sb.from('product_types').delete().eq('id', id);
   if(error){ alert('حدث خطأ: ' + error.message); return; }
@@ -3224,11 +3230,25 @@ function isRestrictedRole(){
   return myProfile.role === 'موظف' || myProfile.role === 'مخزن' || myProfile.role === 'مسؤول';
 }
 
+let morningSubmitInProgress = false;
 async function submitMorningEntry(){
+  if(morningSubmitInProgress) return; // يمنع تكرار الحفظ إذا الموظف دز الزر أكثر من مرة
   const msg = document.getElementById('morningMsg');
   const dateVal = document.getElementById('mDate').value;
   const lineId = document.getElementById('mLine').value;
   if(!dateVal || !lineId){ msg.innerHTML = '<div class="msg err">الرجاء اختيار التاريخ وخط الإنتاج</div>'; return; }
+  morningSubmitInProgress = true;
+  const morningBtn = document.getElementById('morningSubmitBtn');
+  if(morningBtn){ morningBtn.disabled = true; morningBtn.textContent = 'جاري الحفظ...'; }
+  try{
+    await saveMorningEntryInner(msg, dateVal, lineId);
+  } finally {
+    morningSubmitInProgress = false;
+    if(morningBtn){ morningBtn.disabled = false; morningBtn.textContent = 'حفظ بداية الدوام'; }
+  }
+}
+
+async function saveMorningEntryInner(msg, dateVal, lineId){
 
   if(isRestrictedRole()){
     const { data: existing } = await sb.from('production_entries').select('id, created_by').eq('entry_date', dateVal).eq('line_id', lineId).limit(1);
@@ -5680,7 +5700,7 @@ async function openEditProductionEntry(id){
   document.getElementById('editModalTitle').textContent = 'تعديل إدخال الإنتاج';
   const fieldsEl = document.getElementById('editModalFields');
   fieldsEl.innerHTML = `
-    <div><label>التاريخ *</label><input type="date" id="editDate" value="${r.entry_date}"></div>
+    <div><label>التاريخ *</label><input type="date" lang="en" dir="ltr" id="editDate" value="${r.entry_date}"></div>
     <div><label>خط الإنتاج *</label><select id="editLine">${allLines.map(l => `<option value="${l.id}" ${l.id===r.line_id?'selected':''}>${l.name}</option>`).join('')}</select></div>
     <div><label>وقت البدء</label>
       <div style="display:flex; gap:6px;">
@@ -5773,7 +5793,7 @@ async function openEditWarehouseEntry(id){
   document.getElementById('editModalTitle').textContent = 'تعديل إدخال المخزن';
   const fieldsEl = document.getElementById('editModalFields');
   fieldsEl.innerHTML = `
-    <div><label>التاريخ *</label><input type="date" id="editWhDate2" value="${r.entry_date}"></div>
+    <div><label>التاريخ *</label><input type="date" lang="en" dir="ltr" id="editWhDate2" value="${r.entry_date}"></div>
     <div><label>خط الإنتاج *</label><select id="editWhLine2">${allLines.map(l => `<option value="${l.id}" ${l.id===r.line_id?'selected':''}>${l.name}</option>`).join('')}</select></div>
     <div><label>نوع المنتج</label><select id="editWhProductType2" onchange="filterModelsByType('editWhProductType2','editWhModel2')"><option value="">اختاري النوع أول</option>${allProductTypes.map(t => `<option value="${t.id}" ${t.id===currentTypeId?'selected':''}>${t.name}</option>`).join('')}</select></div>
     <div><label>الموديل</label><select id="editWhModel2">${(currentTypeId ? allModels.filter(m=>m.product_type_id===currentTypeId) : allModels).map(m => `<option value="${m.id}" ${m.id===r.model_id?'selected':''}>${m.name}</option>`).join('')}</select></div>
@@ -6891,7 +6911,7 @@ async function submitNewPassword(){
 // ================= تسجيل Service Worker (تطبيق قابل للتثبيت PWA) =================
 if('serviceWorker' in navigator){
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(() => {});
+    navigator.serviceWorker.register('sw.js').catch(() => {});
   });
 }
 
@@ -6906,24 +6926,6 @@ window.addEventListener('pageshow', (event) => {
     }
   }
 });
-</script>
-<script>
-// يخفي النص الافتراضي المقلوب بخانات التاريخ لما تكون فارغة
-(function(){
-  function sync(el){ if(el && el.type==='date') el.classList.toggle('date-empty', !el.value); }
-  function syncAll(){ document.querySelectorAll('input[type="date"]').forEach(sync); }
-  const proto = HTMLInputElement.prototype;
-  ['value','valueAsDate','valueAsNumber'].forEach(function(k){
-    const d = Object.getOwnPropertyDescriptor(proto,k);
-    if(!d || !d.set) return;
-    Object.defineProperty(proto,k,{configurable:true,enumerable:d.enumerable,get:d.get,
-      set:function(v){ d.set.call(this,v); sync(this); }});
-  });
-  ['input','change','blur'].forEach(function(ev){ document.addEventListener(ev,function(e){ sync(e.target); },true); });
-  document.addEventListener('DOMContentLoaded', syncAll);
-  let _q=false; new MutationObserver(function(){ if(_q) return; _q=true; requestAnimationFrame(function(){ _q=false; syncAll(); }); }).observe(document.documentElement,{childList:true,subtree:true});
-  syncAll();
-})();
 </script>
 </body>
 </html>
